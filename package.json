@@ -1,0 +1,41 @@
+{
+  "name": "ai-video-editor",
+  "version": "1.0.0",
+  "description": "A modern, web-based open source video editor built with HTML5, CSS3, and JavaScript",
+  "main": "index.html",
+  "scripts": {
+    "start": "python3 -m http.server 8080",
+    "dev": "python3 -m http.server 8080",
+    "serve": "python3 -m http.server 8080"
+  },
+  "keywords": [
+    "video-editor",
+    "web-app",
+    "html5",
+    "javascript",
+    "video-processing",
+    "open-source",
+    "timeline",
+    "video-effects"
+  ],
+  "author": "VIIICORP",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/VIIICORP/AIVIDEOUI.git"
+  },
+  "bugs": {
+    "url": "https://github.com/VIIICORP/AIVIDEOUI/issues"
+  },
+  "homepage": "https://github.com/VIIICORP/AIVIDEOUI#readme",
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "devDependencies": {},
+  "dependencies": {},
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}
