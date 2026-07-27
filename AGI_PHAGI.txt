@@ -2,3 +2,4 @@ Artificial General Intelligence
 
 Generalization ability: AGI can transfer knowledge and skills learned in one domain to another, enabling it to adapt to new and unseen situations effectively.
 Common sense knowledge: AGI has a vast repository of knowledge about the world, including facts, relationships, and social norms, allowing it to reason and make decisions based on this common understanding.
+mimic the cognitive abilities of the human brain.
