@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Video Editor - Open Source Video Editing Tool</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="video-editor">
+        <!-- Header -->
+        <header class="editor-header">
+            <div class="logo">
+                <i class="fas fa-video"></i>
+                <h1>AI Video Editor</h1>
+            </div>
+            <div class="header-controls">
+                <button class="btn btn-primary" id="exportBtn">
+                    <i class="fas fa-download"></i> Export
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Editor Area -->
+        <main class="editor-main">
+            <!-- Left Sidebar - Media Library -->
+            <aside class="media-library">
+                <h3>Media Library</h3>
+                <div class="upload-area" id="uploadArea">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Drop video files here or click to upload</p>
+                    <input type="file" id="fileInput" accept="video/*" multiple style="display: none;">
+                </div>
+                <div class="media-list" id="mediaList">
+                    <!-- Uploaded media items will appear here -->
+                </div>
+            </aside>
+
+            <!-- Center - Preview Area -->
+            <section class="preview-area">
+                <div class="video-container">
+                    <video id="previewVideo" controls>
+                        <source src="" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="video-overlay" id="videoOverlay">
+                        <div class="placeholder">
+                            <i class="fas fa-play-circle"></i>
+                            <p>Import a video to get started</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Video Controls -->
+                <div class="video-controls">
+                    <button class="control-btn" id="playPauseBtn">
+                        <i class="fas fa-play"></i>
+                    </button>
+                    <button class="control-btn" id="stopBtn">
+                        <i class="fas fa-stop"></i>
+                    </button>
+                    <div class="time-display">
+                        <span id="currentTime">00:00</span> / <span id="duration">00:00</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Right Sidebar - Properties Panel -->
+            <aside class="properties-panel">
+                <h3>Properties</h3>
+                <div class="property-section">
+                    <h4>Video Settings</h4>
+                    <div class="property-item">
+                        <label>Start Time (seconds):</label>
+                        <input type="number" id="startTime" min="0" step="0.1" value="0">
+                    </div>
+                    <div class="property-item">
+                        <label>End Time (seconds):</label>
+                        <input type="number" id="endTime" min="0" step="0.1" value="0">
+                    </div>
+                    <div class="property-item">
+                        <label>Playback Speed:</label>
+                        <select id="playbackSpeed">
+                            <option value="0.5">0.5x</option>
+                            <option value="0.75">0.75x</option>
+                            <option value="1" selected>1x</option>
+                            <option value="1.25">1.25x</option>
+                            <option value="1.5">1.5x</option>
+                            <option value="2">2x</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="property-section">
+                    <h4>Effects</h4>
+                    <div class="property-item">
+                        <label>Brightness:</label>
+                        <input type="range" id="brightness" min="0" max="200" value="100">
+                        <span id="brightnessValue">100%</span>
+                    </div>
+                    <div class="property-item">
+                        <label>Contrast:</label>
+                        <input type="range" id="contrast" min="0" max="200" value="100">
+                        <span id="contrastValue">100%</span>
+                    </div>
+                    <div class="property-item">
+                        <label>Saturation:</label>
+                        <input type="range" id="saturation" min="0" max="200" value="100">
+                        <span id="saturationValue">100%</span>
+                    </div>
+                </div>
+            </aside>
+        </main>
+
+        <!-- Bottom Timeline -->
+        <section class="timeline-area">
+            <div class="timeline-header">
+                <h3>Timeline</h3>
+                <div class="timeline-controls">
+                    <button class="timeline-btn" id="addTrackBtn">
+                        <i class="fas fa-plus"></i> Add Track
+                    </button>
+                    <button class="timeline-btn" id="splitBtn">
+                        <i class="fas fa-cut"></i> Split
+                    </button>
+                </div>
+            </div>
+            <div class="timeline-container">
+                <div class="timeline-ruler" id="timelineRuler">
+                    <!-- Time markers will be generated here -->
+                </div>
+                <div class="timeline-tracks" id="timelineTracks">
+                    <div class="track" id="videoTrack1">
+                        <div class="track-header">
+                            <span>Video Track 1</span>
+                        </div>
+                        <div class="track-content" data-track="video1">
+                            <!-- Video clips will be placed here -->
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-playhead" id="timelinePlayhead"></div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal for Export -->
+    <div class="modal" id="exportModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Export Video</h3>
+                <button class="modal-close" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="export-options">
+                    <div class="option-group">
+                        <label>Format:</label>
+                        <select id="exportFormat">
+                            <option value="mp4">MP4</option>
+                            <option value="webm">WebM</option>
+                        </select>
+                    </div>
+                    <div class="option-group">
+                        <label>Quality:</label>
+                        <select id="exportQuality">
+                            <option value="high">High</option>
+                            <option value="medium">Medium</option>
+                            <option value="low">Low</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="export-progress" id="exportProgress" style="display: none;">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <p id="progressText">Exporting... 0%</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelExport">Cancel</button>
+                <button class="btn btn-primary" id="startExport">Start Export</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
